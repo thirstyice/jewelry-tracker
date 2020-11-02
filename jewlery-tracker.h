@@ -18,6 +18,7 @@
 #pragma once
 
 #include <string>
+#include <ctime>
 
 class JewleryTracker {
 private:
@@ -39,32 +40,27 @@ public:
 		{{"Threadless"}, {"14g","16g"},           {"Titanium"},                {"1/4","5/16"},              },
 		{{"Gems"},       {"14g","White","Clear"}, {"Fauxpal","Bezel","Disks"}, {"3mm","4mm"},               },
 	};
-
+	int currentTask=-1;
+	int currentItem[4]={-1,-1,-1,-1};
+	int completed [][][][];
 	JewleryTracker ();
 	virtual ~JewleryTracker ();
 
 	bool working=false;
 	bool dayStarted=false;
+	std::time_t startTime;
+	std::clock_t itemStartTime;
+
 	void startDay();
 	void stopDay();
 	void pauseWork();
-	void resumeWork();
+	void startWork();
 
 	void completeCurrentItem();
+
 	void selectTask(int task);
-	void selectItem(int type, int gauge, int metal, int size);
-	void breakWork() {
-		if (dayStarted) {
-			stopDay();
-		} else {
-			startDay();
-		}
-	};
-	void pauseResumeWork() {
-		if (working) {
-			pauseWork();
-		} else {
-			resumeWork();
-		}
-	};
+	void selectType(int type);
+	void selectGauge(int gauge);
+	void selectMetal(int metal);
+	void selectSize(int size);
 };
