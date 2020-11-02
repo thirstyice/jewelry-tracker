@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 		<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 		<link rel="stylesheet" href="index.css">
 		<title>Jewlery Tracker</title>
+		<script src="tracker.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<p>
@@ -32,18 +33,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 			<select class="selector" name="item">
 				<option value="nothing">Nothing</option>
 			</select>
+			<span style="position:absolute;right:10px"><button type="button" onclick="openSettings()">Settings</button></span>
 		</p>
 		<table>
 			<tbody>
 				<tr>
 					<td>Start of day:</td>
-					<td id="day-start">N/A</td>
-					<td><button type="button" name="start-end-day">Start day</button></td>
+					<td id="dayStart">N/A</td>
+					<td><button type="button" id="startEndDay">Start / End day</button></td>
 				</tr>
 				<tr>
 					<td>Start of current job:</td>
 					<td id="job-start">N/A</td>
-					<td><button type="button" name="pause-resume-work">Pause work</button></td>
+					<td><button type="button" onclick="pauseWork()">Pause work</button></td>
 				</tr>
 				<tr>
 					<td>Items completed:</td>

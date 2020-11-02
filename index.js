@@ -31,7 +31,6 @@ function createWindow () {
 	})
 
 	win.loadFile('index.html')
-	// init dropdowns from config
 	win.show()
 }
 
