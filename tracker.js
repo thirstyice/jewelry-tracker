@@ -5,7 +5,12 @@ var csv = 'Type,Gauge,Metal,Size,Time per'
 
 function openSettings() {
 	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
-	var confFile=fs.openSync( confFilePath, 'w+');
+	var flags = 'w+'
+	if (fs.existsSync(confFilePath)) {
+		flags = 'r+'
+	}
+	var confFile = fs.readFileSync( confFilePath, {encoding:'utf-8', flag:flags} );
+	console.log(confFile);
 }
 
 function makeTimeString(firstVal, secondVal) {
