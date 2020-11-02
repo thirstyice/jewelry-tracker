@@ -1,0 +1,35 @@
+{
+	"tasks": [
+		"Polishing",
+		"QCing",
+		"Setting",
+		"Sanding"
+	],
+	"items": {
+		"Labrettes": {
+			"Gauge": [ "14g", "16g" ],
+			"Metal": [ "Stainless", "Titanium" ],
+			"Size": [ "1/4", "5/16", "3/8" ]
+		},
+		"CBRs": {
+			"Gauge": [ "14g" ],
+			"Metal": [ "Stainless", "Titanium" ],
+			"Size": [ "5/16", "3/8", "7/16", "1/2" ]
+		},
+		"Barbells": {
+			"Gauge": [ "N/A" ],
+			"Metal": [ "Titanium" ],
+			"Size": [ "7/16", "9/16", "3/4"]
+		},
+		"Threadless": {
+			"Gauge": [ "14g", "16g" ],
+			"Metal": [ "Titanium" ],
+			"Size": [ "1/4", "5/16" ]
+		},
+		"Gems": {
+			"Gauge": [ "14g", "White", "Clear" ],
+			"Metal": [ "Fauxpal", "Bezel", "Disk" ],
+			"Size": [ "3mm", "4mm" ]
+		}
+	}
+}
