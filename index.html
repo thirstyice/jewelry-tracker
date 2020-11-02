@@ -7,7 +7,35 @@
 	</head>
 	<body>
 		<p>
-			Hello World!
+			Currently
+			<select class="selector" name="task">
+				<option value="doing">Doing</option>
+			</select>
+			<select class="selector" name="item">
+				<option value="nothing">Nothing</option>
+			</select>
 		</p>
+		<table>
+			<tbody>
+				<tr>
+					<td>Start of day:</td>
+					<td id="day-start">N/A</td>
+					<td><button type="button" name="start-end-day">Start day</button></td>
+				</tr>
+				<tr>
+					<td>Start of current job:</td>
+					<td id="job-start">N/A</td>
+					<td><button type="button" name="pause-resume-work">Pause work</button></td>
+				</tr>
+				<tr>
+					<td>Items completed:</td>
+					<td id="items-completed">0</td>
+					<td>
+						<button type="button" name="complete-item">Complete item</button>
+						<button type="button" name="undo-completion">Undo completion</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</body>
 </html>
