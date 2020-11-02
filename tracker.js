@@ -1,14 +1,11 @@
 const fs = require('fs');
-const app = require('electron').remote.app;
+const {ipcRenderer} = require('electron');
 var startDate
 var csv = 'Type,Gauge,Metal,Size,Time per'
 
-function fileOpenFailed(err, fd) {
-	console.log('file open failed');
-}
-
 function openSettings() {
-	var confFile=fs.open( app.getPath('userData') + 'config.json', 'w+', fileOpenFailed);
+	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
+	var confFile=fs.openSync( confFilePath, 'w+');
 }
 
 function makeTimeString(firstVal, secondVal) {

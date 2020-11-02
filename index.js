@@ -15,7 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>
 //
 
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 function createWindow () {
 	const win = new BrowserWindow({
@@ -33,6 +33,11 @@ function createWindow () {
 	win.loadFile('index.html')
 	win.show()
 }
+
+ipcMain.on('getConfFilePath', (event) => {
+	var path = app.getPath('userData') + '/config.json';
+	event.returnValue = path;
+})
 
 app.whenReady().then(createWindow)
 
