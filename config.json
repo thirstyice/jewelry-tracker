@@ -5,31 +5,36 @@
 		"Setting",
 		"Sanding"
 	],
-	"items": {
-		"Labrettes": {
-			"Gauge": [ "14g", "16g" ],
-			"Metal": [ "Stainless", "Titanium" ],
-			"Size": [ "1/4", "5/16", "3/8" ]
+	"items": [
+		{
+			"type": "Labrettes",
+			"gauge": [ "14g", "16g" ],
+			"metal": [ "Stainless", "Titanium" ],
+			"size": [ "1/4", "5/16", "3/8" ]
 		},
-		"CBRs": {
-			"Gauge": [ "14g" ],
-			"Metal": [ "Stainless", "Titanium" ],
-			"Size": [ "5/16", "3/8", "7/16", "1/2" ]
+		{
+			"type": "CBRs",
+			"gauge": [ "14g" ],
+			"metal": [ "Stainless", "Titanium" ],
+			"size": [ "5/16", "3/8", "7/16", "1/2" ]
 		},
-		"Barbells": {
-			"Gauge": [ "N/A" ],
-			"Metal": [ "Titanium" ],
-			"Size": [ "7/16", "9/16", "3/4"]
+		{
+			"type": "Barbells",
+			"gauge": [ "N/A" ],
+			"metal": [ "Titanium" ],
+			"size": [ "7/16", "9/16", "3/4"]
 		},
-		"Threadless": {
-			"Gauge": [ "14g", "16g" ],
-			"Metal": [ "Titanium" ],
-			"Size": [ "1/4", "5/16" ]
+		{
+			"type": "Threadless",
+			"gauge": [ "14g", "16g" ],
+			"metal": [ "Titanium" ],
+			"size": [ "1/4", "5/16" ]
 		},
-		"Gems": {
-			"Gauge": [ "14g", "White", "Clear" ],
-			"Metal": [ "Fauxpal", "Bezel", "Disk" ],
-			"Size": [ "3mm", "4mm" ]
+		{
+			"type": "Gems",
+			"gauge": [ "14g", "White", "Clear" ],
+			"metal": [ "Fauxpal", "Bezel", "Disk" ],
+			"size": [ "3mm", "4mm" ]
 		}
-	}
+	]
 }

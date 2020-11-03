@@ -46,7 +46,8 @@ ipcMain.on('getConfFilePath', (event) => {
 ipcMain.on('openSettings', (event) => {
 	settingsWindow = new BrowserWindow({
 		width: 500,
-		height: 400,
+		height: 200,
+		backgroundColor: "#444444",
 		webPreferences: {
 			nodeIntegration: true
 		},
