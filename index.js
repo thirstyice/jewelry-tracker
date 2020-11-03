@@ -17,8 +17,11 @@
 
 const { app, BrowserWindow, ipcMain } = require('electron')
 
-function createWindow () {
-	const win = new BrowserWindow({
+var mainWindow;
+var settingsWindow;
+
+function createWindow() {
+	mainWindow = new BrowserWindow({
 		width: 400,
 		height: 200,
 		minWidth: 260,
@@ -29,9 +32,10 @@ function createWindow () {
 		},
 		show:false
 	})
-
-	win.loadFile('index.html')
-	win.show()
+	mainWindow.loadFile('index.html')
+	mainWindow.once('ready-to-show', () => {
+		mainWindow.show()
+	})
 }
 
 ipcMain.on('getConfFilePath', (event) => {
@@ -39,16 +43,27 @@ ipcMain.on('getConfFilePath', (event) => {
 	event.returnValue = path;
 })
 
+ipcMain.on('openSettings', (event) => {
+	settingsWindow = new BrowserWindow({
+		width: 500,
+		height: 400,
+		webPreferences: {
+			nodeIntegration: true
+		},
+		parent: mainWindow,
+		modal: true,
+		show: false
+	});
+	settingsWindow.loadFile('settings.html');
+	settingsWindow.once('ready-to-show', () => {
+		settingsWindow.show()
+	})
+})
+
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
 	app.quit()
-})
-
-app.on('activate', () => {
-	if (BrowserWindow.getAllWindows().length === 0) {
-		createWindow()
-	}
 })
 
 app.on('before-quit', () => {

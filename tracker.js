@@ -4,6 +4,10 @@ var startDate
 var csv = 'Type,Gauge,Metal,Size,Time per'
 
 function openSettings() {
+	ipcRenderer.sendSync('openSettings');
+}
+
+function getConfiguration() {
 	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
 	var flags = 'w+'
 	if (fs.existsSync(confFilePath)) {
