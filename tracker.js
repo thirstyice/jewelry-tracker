@@ -5,8 +5,12 @@ var csv = 'Type,Gauge,Metal,Size,Time per'
 var configuration;
 
 function openSettings() {
-	ipcRenderer.sendSync('openSettings');
+	ipcRenderer.send('openSettings');
 }
+ipcRenderer.on("settingsWasClosed", (event) => {
+	initDropdowns();
+	console.log("Settings closed");
+});
 
 function getConfiguration() {
 	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
@@ -15,7 +19,7 @@ function getConfiguration() {
 		flags = 'r+'
 	}
 	var confFile = fs.readFileSync( confFilePath, {encoding:'utf-8', flag:flags} );
-	console.log(confFile);
+	configuration = JSON.parse(confFile);
 }
 
 function makeTimeString(firstVal, secondVal) {
@@ -95,13 +99,7 @@ function populateDropdown(dropdown, children) {
 }
 
 function initDropdowns() {
-	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
-	var flags = 'w+'
-	if (fs.existsSync(confFilePath)) {
-		flags = 'r+'
-	}
-	var confFile = fs.readFileSync( confFilePath, {encoding:'utf-8', flag:flags} );
-	configuration = JSON.parse(confFile);
+	getConfiguration()
 
 	populateDropdown('tasks', configuration.tasks);
 
@@ -118,13 +116,7 @@ function selected(dropdownId) {
 	var options = document.getElementById(dropdownId).options;
 	var selectedId = options[options.selectedIndex].id;
 	if (dropdownId == "typeSelector") {
-		var confFilePath = ipcRenderer.sendSync('getConfFilePath');
-		var flags = 'w+'
-		if (fs.existsSync(confFilePath)) {
-			flags = 'r+'
-		}
-		var confFile = fs.readFileSync( confFilePath, {encoding:'utf-8', flag:flags} );
-		configuration = JSON.parse(confFile);
+		getConfiguration();
 
 		populateDropdown('gauge', configuration.items[selectedId].gauge);
 		populateDropdown('metal', configuration.items[selectedId].metal);

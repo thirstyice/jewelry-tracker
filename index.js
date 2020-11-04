@@ -59,6 +59,14 @@ ipcMain.on('openSettings', (event) => {
 	settingsWindow.once('ready-to-show', () => {
 		settingsWindow.show()
 	})
+	settingsWindow.on('closed', function() {
+		mainWindow.webContents.send("settingsWasClosed");
+		settingsWindow = null;
+	})
+})
+
+ipcMain.on('closeSettings', (event) => {
+	settingsWindow.close();
 })
 
 app.whenReady().then(createWindow)

@@ -3,6 +3,14 @@ const {ipcRenderer} = require('electron');
 
 var configuration;
 
+function exitDiscard() {
+	ipcRenderer.send('closeSettings');
+}
+
+function exitSave() {
+
+}
+
 function populate(parentId, children) {
 	var element = document.getElementById(parentId);
 	while (element.hasChildNodes()) {
