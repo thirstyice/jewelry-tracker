@@ -3,30 +3,41 @@ const {ipcRenderer} = require('electron');
 
 var configuration;
 
-function appendElement(parentId, element) {
-	var node = document.createElement('LI');
-	var id = document.createAttribute("id");
-	var onClick = document.createAttribute("onclick");
-	id.value = element;
-	onClick.value = "select(this.id)"
-	node.setAttributeNode(id);
-	node.setAttributeNode(onClick);
-	node.appendChild(document.createTextNode(element));
-	document.getElementById(parentId).appendChild(node);
-}
-
-function populate(id, elements) {
+function populate(parentId, children) {
+	var element = document.getElementById(parentId);
+	while (element.hasChildNodes()) {
+		element.removeChild(element.firstChild);
+	}
 	var i;
-	for (i = 0; i < elements.length; i++) {
-		appendElement(id, elements[i]);
+	for (i = 0; i < children.length; i++) {
+		var node = document.createElement('LI');
+		var id = document.createAttribute("id");
+		var onClick = document.createAttribute("onclick");
+		id.value = children[i];
+		onClick.value = "select(this.id)"
+		node.setAttributeNode(id);
+		node.setAttributeNode(onClick);
+		node.appendChild(document.createTextNode(children[i]));
+		document.getElementById(parentId).appendChild(node);
 	}
 }
 
 function populateTypes() {
+	var element = document.getElementById('type');
+	while (element.hasChildNodes()) {
+		element.removeChild(element.firstChild);
+	}
 	var i;
 	for (i=0; i < configuration.items.length; i++) {
-		console.log(configuration.items[i]);
-		appendElement('type', configuration.items[i].type)
+		var node = document.createElement('LI');
+		var id = document.createAttribute("id");
+		var onClick = document.createAttribute("onclick");
+		id.value = i;
+		onClick.value = "select(this.id)"
+		node.setAttributeNode(id);
+		node.setAttributeNode(onClick);
+		node.appendChild(document.createTextNode(configuration.items[i].type));
+		document.getElementById('type').appendChild(node);
 	}
 }
 
@@ -39,6 +50,11 @@ function select(id) {
 		siblings[i].classList.remove("selected");
 	}
 	element.classList.add("selected");
+	if (parentElement.id = "type") {
+		populate("gauge", configuration.items[element.id].gauge);
+		populate("metal", configuration.items[element.id].metal);
+		populate("size", configuration.items[element.id].size);
+	}
 }
 
 
