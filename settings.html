@@ -9,6 +9,13 @@
 	</head>
 	<body>
 		<table>
+			<thead>
+				<th>Tasks</th>
+				<th>Type</th>
+				<th>Gauge</th>
+				<th>Metal</th>
+				<th>Size</th>
+			</thead>
 			<tbody>
 				<tr>
 					<td>
@@ -35,6 +42,28 @@
 						<ul id="size">
 
 						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="button" onclick="removeTask()">-</button>
+						<button type="button" onclick="addTask()">+</button>
+					</td>
+					<td>
+						<button type="button" onclick="removeType()">-</button>
+						<button type="button" onclick="addType()">+</button>
+					</td>
+					<td>
+						<button type="button" onclick="removeGauge()">-</button>
+						<button type="button" onclick="addGauge()">+</button>
+					</td>
+					<td>
+						<button type="button" onclick="removeMetal()">-</button>
+						<button type="button" onclick="addMetal()">+</button>
+					</td>
+					<td>
+						<button type="button" onclick="removeSize()">-</button>
+						<button type="button" onclick="addSize()">+</button>
 					</td>
 				</tr>
 			</tbody>

@@ -1,14 +1,23 @@
 table {
 	width: 100%;
 }
+th {
+	width: 0;
+	overflow-x: visible;
+}
 td {
 	background-color: #333333;
 	text-align: center;
+	padding: 0;
+	vertical-align: text-top;
 }
 ul {
 	list-style-type: none;
 	padding: 0;
+	text-align: center;
+	margin-top: 0;
 }
+
 body {
 	background-color: #444444;
 	color: #eeeeee;
