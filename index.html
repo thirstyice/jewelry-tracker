@@ -29,7 +29,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 			<span id="dropdowns">
 
 			</span>
-			<span style="position:absolute;right:10px"><button type="button" onclick="openSettings()">Settings</button></span>
 		</p>
 		<table>
 			<tbody>
@@ -46,10 +45,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 				<tr>
 					<td>Items completed:</td>
 					<td id="items-completed">0</td>
-					<td>
-						<button type="button" name="complete-item">Complete item</button>
-						<button type="button" name="undo-completion">Undo completion</button>
-					</td>
+					<td><button type="button" name="undo-completion">Undo completion</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" onclick="openSettings()">Settings</button></td>
+					<td></td>
+					<td><button type="button" name="complete-item">Complete item</button></td>
 				</tr>
 			</tbody>
 		</table>

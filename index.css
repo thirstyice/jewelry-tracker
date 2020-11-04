@@ -20,3 +20,7 @@ body {
 	color: #eeeeee;
 	font-family: sans-serif;
 }
+
+td:last-child {
+	text-align: right;
+}
