@@ -5,6 +5,12 @@ var configuration;
 
 function appendElement(parentId, element) {
 	var node = document.createElement('LI');
+	var id = document.createAttribute("id");
+	var onClick = document.createAttribute("onclick");
+	id.value = element;
+	onClick.value = "select(this.id)"
+	node.setAttributeNode(id);
+	node.setAttributeNode(onClick);
 	node.appendChild(document.createTextNode(element));
 	document.getElementById(parentId).appendChild(node);
 }
@@ -22,6 +28,17 @@ function populateTypes() {
 		console.log(configuration.items[i]);
 		appendElement('type', configuration.items[i].type)
 	}
+}
+
+function select(id) {
+	var element = document.getElementById(id);
+	var parentElement = element.parentElement;
+	var siblings = parentElement.children;
+	var i;
+	for (i=0; i<siblings.length; i++) {
+		siblings[i].classList.remove("selected");
+	}
+	element.classList.add("selected");
 }
 
 

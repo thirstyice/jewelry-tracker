@@ -16,10 +16,15 @@ ul {
 	padding: 0;
 	text-align: center;
 	margin-top: 0;
+	cursor:pointer;
 }
 
 body {
 	background-color: #444444;
 	color: #eeeeee;
 	font-family: sans-serif;
+}
+.selected {
+	background-color: #222244;
+	cursor: default;
 }
