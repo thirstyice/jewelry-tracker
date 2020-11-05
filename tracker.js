@@ -9,7 +9,6 @@ function openSettings() {
 }
 ipcRenderer.on("settingsWasClosed", (event) => {
 	initDropdowns();
-	console.log("Settings closed");
 });
 
 function getConfiguration() {

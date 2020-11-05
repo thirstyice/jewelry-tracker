@@ -77,5 +77,10 @@ window.onload = function() {
 
 	populate('tasks', configuration.tasks);
 	populateTypes();
-
+	
+	require('electron').remote.getCurrentWindow().setContentSize(
+		document.documentElement.offsetWidth,
+		document.documentElement.offsetHeight,
+		true
+	);
 }

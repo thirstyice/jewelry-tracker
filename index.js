@@ -22,10 +22,11 @@ var settingsWindow;
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
-		width: 400,
-		height: 200,
-		minWidth: 260,
-		minHeight: 150,
+		width: 500,
+		height: 165,
+		minWidth: 300,
+		minHeight: 165,
+		useContentSize: true,
 		backgroundColor: "#444444",
 		webPreferences: {
 			nodeIntegration: true
@@ -49,7 +50,8 @@ ipcMain.on('openSettings', (event) => {
 		height: 200,
 		backgroundColor: "#444444",
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: true,
+			enableRemoteModule: true
 		},
 		parent: mainWindow,
 		modal: true,

@@ -21,6 +21,14 @@ body {
 	font-family: sans-serif;
 }
 
+table {
+	width: 100%;
+}
+
 td:last-child {
 	text-align: right;
+}
+
+p {
+	text-align: center;
 }
