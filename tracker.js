@@ -1,8 +1,10 @@
 const fs = require('fs');
 const {ipcRenderer} = require('electron');
-var startDate
-var csv = 'Type,Gauge,Metal,Size,Time per'
+var shiftStart;
+var jobStart;
 var configuration;
+var completed;
+var oldAverageCompletionTime;
 
 function openSettings() {
 	ipcRenderer.send('openSettings');
@@ -30,7 +32,6 @@ function makeTimeString(firstVal, secondVal) {
 }
 
 function switchButtonToStartDay() {
-	console.log('set button to start day')
 	var button = document.getElementById('startEndDay')
 	button.removeEventListener('click', endDay)
 	button.addEventListener('click', startDay)
@@ -42,23 +43,64 @@ function switchButtonToEndDay() {
 	button.addEventListener('click', endDay)
 	button.innerHTML = "End Day"
 }
+function switchButtonToPauseWork() {
+	var button = document.getElementById('pauseResumeWork')
+	button.removeEventListener('click', resumeWork)
+	button.addEventListener('click', pauseWork)
+	button.innerHTML = "Pause Work"
+}
+function switchButtonToResumeWork() {
+	var button = document.getElementById('pauseResumeWork')
+	button.removeEventListener('click', pauseWork)
+	button.addEventListener('click', resumeWork)
+	button.innerHTML = "Resume Work"
+}
+
+function startJob() {
+	jobStart = new Date();
+	document.getElementById("jobStart").innerHTML = makeTimeString(
+		jobStart.getHours(), jobStart.getMinutes()
+	);
+}
+
+function resumeWork() {
+	startJob();
+	switchButtonToPauseWork();
+}
+
+function pauseWork() {
+	jobStart=null;
+	document.getElementById("jobStart").innerHTML = "N/A";
+	switchButtonToResumeWork();
+}
+
 
 function startDay() {
-	console.log('start day');
-	startDate = new Date()
-	document.getElementById('dayStart').innerHTML = makeTimeString(startDate.getHours(), startDate.getMinutes())
-	switchButtonToEndDay()
+	shiftStart = new Date();
+	document.getElementById('dayStart').innerHTML = makeTimeString(
+		shiftStart.getHours(), shiftStart.getMinutes()
+	);
+	resumeWork();
+	switchButtonToEndDay();
 }
 
 function endDay() {
 	var endDate = new Date()
-	var dayLength = endDate - startDate // in ms
+	var dayLength = endDate - shiftStart // in ms
 	var dayHours = Math.floor(dayLength / 3600000)
 	dayLength -= dayHours * 3600000
 	var dayMinutes = Math.round(dayLength / 60000)
 	console.log('day length ' + makeTimeString(dayHours, dayMinutes))
-	// create and download data
+	// download data
 	switchButtonToStartDay()
+}
+
+function completeItem() {
+
+}
+
+function undoCompletion() {
+	
 }
 
 function createElement(element, id, eventName, responder) {
