@@ -80,18 +80,16 @@ function add(kind) {
 			remote.dialog.showMessageBoxSync(remote.getCurrentWindow(), {type:"error", message: "Need to select a type"});
 			return;
 		}
-		var selectedItem =  types[types.selectedIndex].id;
+		var selectedItem =  types.selectedIndex;
 	}
 
 	var options = document.getElementById(dropdownId).options;
 	if (options.selectedIndex < 0) {
 		options.selectedIndex = options.length - 1;
 	}
-	var selectedId =  options[options.selectedIndex].id;
 
 	var prompt = document.getElementById("prompt");
 	document.getElementById("promptText").innerHTML = "New " + kind + " name:";
-	document.getElementById("promptInput").focus();
 	document.getElementById("promptButton").addEventListener('click', function finishAdding() {
 		var name = document.getElementById("promptInput").value;
 		if (name=="") {
@@ -147,6 +145,7 @@ function add(kind) {
 		document.getElementById("promptButton").removeEventListener("click", finishAdding);
 	});
 	prompt.style.display = "block";
+	document.getElementById("promptInput").focus();
 }
 
 function remove(kind) {
@@ -214,4 +213,13 @@ window.onload = function() {
 		document.documentElement.offsetHeight,
 		true
 	);
+
+	// Setup prompt keybinding
+	document.getElementById("promptInput").addEventListener("keyup", function(event) {
+		// Number 13 is the "Enter" key on the keyboard
+		if (event.keyCode === 13) {
+			event.preventDefault();
+			document.getElementById("promptButton").click();
+		}
+	});
 }
