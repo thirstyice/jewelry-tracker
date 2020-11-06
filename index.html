@@ -44,13 +44,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 				</tr>
 				<tr>
 					<td>Items completed:</td>
-					<td id="items-completed">0</td>
-					<td><button type="button" name="undo-completion">Undo completion</button></td>
+					<td id="numberCompleted">0</td>
+					<td><button type="button" onclick="undoCompletion()">Undo completion</button></td>
 				</tr>
 				<tr>
+					<td>Average time:</td>
+					<td id="averageTime"></td>
+					<td><button type="button" onclick="completeItem()">Complete item</button></td>
+				</tr>
+				<tr>
+					<td></td>
 					<td><button type="button" onclick="openSettings()">Settings</button></td>
 					<td></td>
-					<td><button type="button" name="complete-item">Complete item</button></td>
 				</tr>
 			</tbody>
 		</table>

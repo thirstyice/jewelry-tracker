@@ -23,9 +23,9 @@ var settingsWindow;
 function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 500,
-		height: 165,
+		height: 190,
 		minWidth: 300,
-		minHeight: 165,
+		minHeight: 190,
 		useContentSize: true,
 		backgroundColor: "#444444",
 		webPreferences: {

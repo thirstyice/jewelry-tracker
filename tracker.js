@@ -3,8 +3,10 @@ const {ipcRenderer} = require('electron');
 var shiftStart;
 var jobStart;
 var configuration;
-var completed;
+var completed = [];
+var taskIndex;
 var oldAverageCompletionTime;
+var initComplete=false;
 
 function openSettings() {
 	ipcRenderer.send('openSettings');
@@ -96,7 +98,29 @@ function endDay() {
 }
 
 function completeItem() {
+	if (shiftStart == null) {
+		startDay();
+	} else if (jobStart == null) {
+		resumeWork();
+	} else {
+		var itemTime = (new Date) - jobStart
 
+		if (completed[taskIndex].averageTime == null) {
+			completed[taskIndex].averageTime = itemTime;
+		} else {
+			oldAverageCompletionTime = completed[taskIndex].averageTime;
+			completed[taskIndex].averageTime = ((
+				completed[taskIndex].averageTime * completed[taskIndex].number) + itemTime) / (
+				completed[taskIndex].number + 1
+			);
+		}
+		var minutes = Math.floor(completed[taskIndex].averageTime/60000);
+		var seconds = Math.round((completed[taskIndex].averageTime - (minutes * 60000))/1000);
+		document.getElementById("averageTime").innerHTML = makeTimeString(minutes, seconds);
+	}
+	completed[taskIndex].number ++;
+	document.getElementById("numberCompleted").innerHTML = completed[taskIndex].number;
+	jobStart = new Date();
 }
 
 function undoCompletion() {
@@ -153,22 +177,49 @@ function initDropdowns() {
 	populateDropdown('type', types)
 }
 
-function selected(dropdownId) {
+function getSelectedOptionForDropdown(dropdownId) {
 	var options = document.getElementById(dropdownId).options;
-	var selectedId = options[options.selectedIndex].id;
+	return options[options.selectedIndex];
+}
+
+function selected(dropdownId) {
+	var selectedId = getSelectedOptionForDropdown(dropdownId).id;
 	if (dropdownId == "typeSelector") {
 		getConfiguration();
 
 		populateDropdown('gauge', configuration.items[selectedId].gauge);
 		populateDropdown('metal', configuration.items[selectedId].metal);
 		populateDropdown('size', configuration.items[selectedId].size);
+		initComplete = true;
+	}
+	if (initComplete) {
+		var selectedTask = getSelectedOptionForDropdown("tasksSelector").value;
+		var selectedType = getSelectedOptionForDropdown("typeSelector").value;
+		var selectedGauge = getSelectedOptionForDropdown("gaugeSelector").value;
+		var selectedMetal = getSelectedOptionForDropdown("metalSelector").value;
+		var selectedSize = getSelectedOptionForDropdown("sizeSelector").value;
+
+		var selectedJob = selectedTask + "," + selectedType + "," + selectedGauge + "," + selectedMetal + "," + selectedSize;
+
+		var i;
+		taskIndex=null;
+		for (i=0; i<completed.length; i++) {
+			if (completed[i].job == selectedJob) {
+				taskIndex=i;
+			}
+		}
+		if (taskIndex==null) {
+			taskIndex = completed.length;
+			completed[taskIndex] = {
+				job: selectedJob,
+				number: 0,
+				averageTime: null
+			};
+		}
+
 	}
 }
 
-
-
-// init dropdowns from config files
-// init buttons
 window.onload = function() {
 	initDropdowns();
 	switchButtonToStartDay()
