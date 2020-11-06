@@ -2,7 +2,6 @@ const fs = require('fs');
 const {ipcRenderer, remote} = require('electron');
 
 var configuration;
-var selectedType;
 
 function exitDiscard() {
 	ipcRenderer.send('closeSettings');
@@ -53,6 +52,15 @@ function populateDropdown(dropdown, children) {
 	}
 }
 
+function populateType() {
+	var types = [];
+	var i;
+	for (i=0; i<configuration.items.length; i++) {
+		types[i] = configuration.items[i].type;
+	}
+	populateDropdown('type', types)
+}
+
 function selected(dropdownId) {
 	var options = document.getElementById(dropdownId).options;
 	var selectedId =  options[options.selectedIndex].id;
@@ -63,54 +71,85 @@ function selected(dropdownId) {
 	}
 }
 
-function add(dropdownId) {
-	if (selectedType==null && parent!="task" && parent!="type") {
-		remote.dialog.showMessageBoxSync(remote.getCurrentWindow(), {type:"error", message: "Need to select a type"});
-		return;
-	} //prompt for name
-	//var promptElement =
-	// var precedingElement = document.getElementById(parent).getElementsByClassName("selected")[0];
-	// precedingElement.insertA
-	var name = prompt("New " + parent + " name:", "name");
-	if (parent=="type") {
-		configuration.items.push({
-			type: name,
-			gauge: [],
-			metal: [],
-			size: []
-		});
-	} else {
-		switch (parent) {
-			case "task" :
-				configuration.task.push(name);
-				populate("task", configuration.task);
+function add(kind) {
+	dropdownId = kind + "Selector";
+	var types = null;
+	if (kind!="task" && kind!="type") {
+		var types = document.getElementById("typeSelector").options;
+		if (types.selectedIndex < 0) {
+			remote.dialog.showMessageBoxSync(remote.getCurrentWindow(), {type:"error", message: "Need to select a type"});
+			return;
+		}
+		var selectedItem =  types[types.selectedIndex].id;
+	}
+
+	var options = document.getElementById(dropdownId).options;
+	if (options.selectedIndex < 0) {
+		options.selectedIndex = options.length - 1;
+	}
+	var selectedId =  options[options.selectedIndex].id;
+
+	var prompt = document.getElementById("prompt");
+	document.getElementById("promptText").innerHTML = "New " + kind + " name:";
+	document.getElementById("promptInput").focus();
+	document.getElementById("promptButton").addEventListener('click', function finishAdding() {
+		var name = document.getElementById("promptInput").value;
+		if (name=="") {
+			return;
+		}
+		var i;
+		switch (kind) {
+			case "task":
+				for (i=options.length; i>(options.selectedIndex + 1); i--) {
+					configuration.task[i] = configuration.task[i-1];
+				}
+				configuration.task[i] = name;
+				populateDropdown("task", configuration.task);
 			break;
-			case "type" :
-				configuration.items.push({
+			case "type":
+				for (i=options.length; i>(options.selectedIndex + 1); i--) {
+					configuration.items[i] = configuration.items[i-1];
+				}
+				configuration.items[i] = {
 					type: name,
 					gauge: [],
 					metal: [],
 					size: []
-				});
-				populateTypes();
+				};
+				populateType()
+				document.getElementById(dropdownId).selectedIndex = i;
+				selected(dropdownId);
 			break;
-			case "gauge" :
-				configuration.items[selectedType].gauge.push(name);
-				populate("gauge", configuration.items[selectedType].gauge);
+			case "gauge":
+				for (i=options.length; i>(options.selectedIndex + 1); i--) {
+					configuration.items[selectedItem].gauge[i] = configuration.items[selectedItem].gauge[i-1];
+				}
+				configuration.items[selectedItem].gauge[i] = name;
+				populateDropdown("gauge", configuration.items[selectedItem].gauge);
 			break;
-			case "metal" :
-				configuration.items[selectedType].metal.push(name);
-				populate("metal", configuration.items[selectedType].metal);
+			case "metal":
+				for (i=options.length; i>(options.selectedIndex + 1); i--) {
+					configuration.items[selectedItem].metal[i] = configuration.items[selectedItem].metal[i-1];
+				}
+				configuration.items[selectedItem].metal[i] = name;
+				populateDropdown("metal", configuration.items[selectedItem].metal);
 			break;
-			case "size" :
-				configuration.items[selectedType].size.push(name);
-				populate("size", configuration.items[selectedType].size);
+			case "size":
+				for (i=options.length; i>(options.selectedIndex + 1); i--) {
+					configuration.items[selectedItem].size[i] = configuration.items[selectedItem].size[i-1];
+				}
+				configuration.items[selectedItem].size[i] = name;
+				populateDropdown("size", configuration.items[selectedItem].size);
 			break;
 		}
-	}
+		prompt.style.display = "none";
+		document.getElementById("promptInput").value = "";
+		document.getElementById("promptButton").removeEventListener("click", finishAdding);
+	});
+	prompt.style.display = "block";
 }
 
-function remove(parent) {
+function remove(kind) {
 
 }
 
@@ -124,12 +163,7 @@ window.onload = function() {
 	configuration = JSON.parse(confFile);
 
 	populateDropdown('task', configuration.task);
-	var types = [];
-	var i;
-	for (i=0; i<configuration.items.length; i++) {
-		types[i] = configuration.items[i].type;
-	}
-	populateDropdown('type', types)
+	populateType();
 
 	remote.getCurrentWindow().setContentSize(
 		document.documentElement.offsetWidth,
