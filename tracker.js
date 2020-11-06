@@ -166,7 +166,7 @@ function populateDropdown(dropdown, children) {
 function initDropdowns() {
 	getConfiguration()
 
-	populateDropdown('tasks', configuration.tasks);
+	populateDropdown('task', configuration.task);
 
 
 	var types = [];
@@ -193,7 +193,7 @@ function selected(dropdownId) {
 		initComplete = true;
 	}
 	if (initComplete) {
-		var selectedTask = getSelectedOptionForDropdown("tasksSelector").value;
+		var selectedTask = getSelectedOptionForDropdown("taskSelector").value;
 		var selectedType = getSelectedOptionForDropdown("typeSelector").value;
 		var selectedGauge = getSelectedOptionForDropdown("gaugeSelector").value;
 		var selectedMetal = getSelectedOptionForDropdown("metalSelector").value;

@@ -1,14 +1,18 @@
 const fs = require('fs');
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, remote} = require('electron');
 
 var configuration;
+var selectedType;
 
 function exitDiscard() {
 	ipcRenderer.send('closeSettings');
 }
 
 function exitSave() {
-
+	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
+	var flags = 'w'
+	fs.writeFileSync( confFilePath, JSON.stringify(configuration) );
+	ipcRenderer.send('closeSettings');
 }
 
 function populate(parentId, children) {
@@ -62,9 +66,60 @@ function select(id) {
 		populate("gauge", configuration.items[element.id].gauge);
 		populate("metal", configuration.items[element.id].metal);
 		populate("size", configuration.items[element.id].size);
+		selectedType = element.id;
 	}
 }
 
+function add(parent) {
+	if (selectedType==null && parent!="task" && parent!="type") {
+		remote.dialog.showMessageBoxSync(remote.getCurrentWindow(), {type:"error", message: "Need to select a type"});
+		return;
+	} //prompt for name
+	//var promptElement =
+	var precedingElement = document.getElementById(parent).getElementsByClassName("selected")[0];
+	precedingElement.insertA
+	var name = prompt("New " + parent + " name:", "name");
+	if (parent=="type") {
+		configuration.items.push({
+			type: name,
+			gauge: [],
+			metal: [],
+			size: []
+		});
+	} else {
+		switch (parent) {
+			case "task" :
+				configuration.task.push(name);
+				populate("task", configuration.task);
+			break;
+			case "type" :
+				configuration.items.push({
+					type: name,
+					gauge: [],
+					metal: [],
+					size: []
+				});
+				populateTypes();
+			break;
+			case "gauge" :
+				configuration.items[selectedType].gauge.push(name);
+				populate("gauge", configuration.items[selectedType].gauge);
+			break;
+			case "metal" :
+				configuration.items[selectedType].metal.push(name);
+				populate("metal", configuration.items[selectedType].metal);
+			break;
+			case "size" :
+				configuration.items[selectedType].size.push(name);
+				populate("size", configuration.items[selectedType].size);
+			break;
+		}
+	}
+}
+
+function remove(parent) {
+
+}
 
 window.onload = function() {
 	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
@@ -75,10 +130,10 @@ window.onload = function() {
 	var confFile = fs.readFileSync( confFilePath, {encoding:'utf-8', flag:flags} );
 	configuration = JSON.parse(confFile);
 
-	populate('tasks', configuration.tasks);
+	populate('task', configuration.task);
 	populateTypes();
-	
-	require('electron').remote.getCurrentWindow().setContentSize(
+
+	remote.getCurrentWindow().setContentSize(
 		document.documentElement.offsetWidth,
 		document.documentElement.offsetHeight,
 		true
