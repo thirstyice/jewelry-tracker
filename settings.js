@@ -75,7 +75,7 @@ function add(kind) {
 	dropdownId = kind + "Selector";
 	var types = null;
 	if (kind!="task" && kind!="type") {
-		var types = document.getElementById("typeSelector").options;
+		types = document.getElementById("typeSelector").options;
 		if (types.selectedIndex < 0) {
 			remote.dialog.showMessageBoxSync(remote.getCurrentWindow(), {type:"error", message: "Need to select a type"});
 			return;
@@ -116,7 +116,7 @@ function add(kind) {
 					metal: [],
 					size: []
 				};
-				populateType()
+				populateType();
 				document.getElementById(dropdownId).selectedIndex = i;
 				selected(dropdownId);
 			break;
@@ -150,7 +150,51 @@ function add(kind) {
 }
 
 function remove(kind) {
-
+	dropdown = document.getElementById(kind + "Selector");
+	var item = null;
+	if (kind!="task" && kind!="type") {
+		item = document.getElementById("typeSelector").selectedIndex;
+	}
+	var i;
+	switch (kind) {
+		case "task" :
+			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
+				configuration.task[i] = configuration.task[i + 1];
+			}
+			configuration.task.pop();
+			populateDropdown("task", configuration.task);
+		break;
+		case "type" :
+			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
+				configuration.items[i] = configuration.items[i + 1];
+			}
+			configuration.items.pop();
+			populateType();
+			dropdown.selectedIndex = 0;
+			selected(kind + "Selector");
+		break;
+		case "gauge" :
+			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
+				configuration.items[item].gauge[i] = configuration.items[item].gauge[i + 1];
+			}
+			configuration.items[item].gauge.pop();
+			populateDropdown("gauge", configuration.items[item].gauge);
+		break;
+		case "metal" :
+			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
+				configuration.items[item].metal[i] = configuration.items[item].metal[i + 1];
+			}
+			configuration.items[item].metal.pop();
+			populateDropdown("metal", configuration.items[item].metal);
+		break;
+		case "size" :
+			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
+				configuration.items[item].size[i] = configuration.items[item].size[i + 1];
+			}
+			configuration.items[item].size.pop();
+			populateDropdown("size", configuration.items[item].size);
+		break;
+	}
 }
 
 window.onload = function() {
