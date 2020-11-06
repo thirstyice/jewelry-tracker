@@ -20,6 +20,23 @@ select {
 	background-color: #333333;
 	color: #eeeeee;
 }
+/* Scrollbar styling */
+/* width */
+select::-webkit-scrollbar {
+  width: 2px;
+}
+/* Track */
+select::-webkit-scrollbar-track {
+  background: #333333;
+}
+/* Handle */
+select::-webkit-scrollbar-thumb {
+  background: #eee;
+}
+/* Handle on hover */
+select::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
 
 body {
 	background-color: #444444;
