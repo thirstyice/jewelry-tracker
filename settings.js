@@ -150,6 +150,9 @@ function add(kind) {
 
 function remove(kind) {
 	dropdown = document.getElementById(kind + "Selector");
+	if (dropdown.selectedIndex == -1) {
+		return;
+	}
 	var item = null;
 	if (kind!="task" && kind!="type") {
 		item = document.getElementById("typeSelector").selectedIndex;
