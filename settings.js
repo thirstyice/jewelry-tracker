@@ -15,69 +15,62 @@ function exitSave() {
 	ipcRenderer.send('closeSettings');
 }
 
-function populate(parentId, children) {
-	var element = document.getElementById(parentId);
-	while (element.hasChildNodes()) {
-		element.removeChild(element.firstChild);
+function createElement(element, id, eventName, responder) {
+	var node = document.createElement(element);
+	var idAttribute = document.createAttribute("id");
+	idAttribute.value = id;
+	node.setAttributeNode(idAttribute);
+	if (eventName != null) {
+		var eventAttribute = document.createAttribute(eventName);
+		eventAttribute.value = responder;
+		node.setAttributeNode(eventAttribute);
+	}
+	return node;
+}
+
+function populateDropdown(dropdown, children) {
+	if (document.getElementById( dropdown + "Selector") == null) {
+		document.getElementById("dropdowns").appendChild(
+			document.createElement('td')
+		).appendChild(
+				createElement("select", dropdown + "Selector", "onchange", "selected(this.id)")
+		);
+		document.getElementById(dropdown + "Selector").setAttribute("size", "6");
+	}
+	var selector = document.getElementById(dropdown + "Selector");
+	while (selector.hasChildNodes()) {
+		selector.removeChild(selector.firstChild);
 	}
 	var i;
 	for (i = 0; i < children.length; i++) {
-		var node = document.createElement('LI');
-		var id = document.createAttribute("id");
-		var onClick = document.createAttribute("onclick");
-		id.value = children[i];
-		onClick.value = "select(this.id)"
-		node.setAttributeNode(id);
-		node.setAttributeNode(onClick);
+		var id = children[i];
+		if (dropdown == 'type') {
+			id = i;
+		}
+		var node = createElement("option", id, null, null);
 		node.appendChild(document.createTextNode(children[i]));
-		document.getElementById(parentId).appendChild(node);
+		selector.appendChild(node);
 	}
 }
 
-function populateTypes() {
-	var element = document.getElementById('type');
-	while (element.hasChildNodes()) {
-		element.removeChild(element.firstChild);
-	}
-	var i;
-	for (i=0; i < configuration.items.length; i++) {
-		var node = document.createElement('LI');
-		var id = document.createAttribute("id");
-		var onClick = document.createAttribute("onclick");
-		id.value = i;
-		onClick.value = "select(this.id)"
-		node.setAttributeNode(id);
-		node.setAttributeNode(onClick);
-		node.appendChild(document.createTextNode(configuration.items[i].type));
-		document.getElementById('type').appendChild(node);
+function selected(dropdownId) {
+	var options = document.getElementById(dropdownId).options;
+	var selectedId =  options[options.selectedIndex].id;
+	if (dropdownId == "typeSelector") {
+		populateDropdown('gauge', configuration.items[selectedId].gauge);
+		populateDropdown('metal', configuration.items[selectedId].metal);
+		populateDropdown('size', configuration.items[selectedId].size);
 	}
 }
 
-function select(id) {
-	var element = document.getElementById(id);
-	var parentElement = element.parentElement;
-	var siblings = parentElement.children;
-	var i;
-	for (i=0; i<siblings.length; i++) {
-		siblings[i].classList.remove("selected");
-	}
-	element.classList.add("selected");
-	if (parentElement.id = "type") {
-		populate("gauge", configuration.items[element.id].gauge);
-		populate("metal", configuration.items[element.id].metal);
-		populate("size", configuration.items[element.id].size);
-		selectedType = element.id;
-	}
-}
-
-function add(parent) {
+function add(dropdownId) {
 	if (selectedType==null && parent!="task" && parent!="type") {
 		remote.dialog.showMessageBoxSync(remote.getCurrentWindow(), {type:"error", message: "Need to select a type"});
 		return;
 	} //prompt for name
 	//var promptElement =
-	var precedingElement = document.getElementById(parent).getElementsByClassName("selected")[0];
-	precedingElement.insertA
+	// var precedingElement = document.getElementById(parent).getElementsByClassName("selected")[0];
+	// precedingElement.insertA
 	var name = prompt("New " + parent + " name:", "name");
 	if (parent=="type") {
 		configuration.items.push({
@@ -130,8 +123,13 @@ window.onload = function() {
 	var confFile = fs.readFileSync( confFilePath, {encoding:'utf-8', flag:flags} );
 	configuration = JSON.parse(confFile);
 
-	populate('task', configuration.task);
-	populateTypes();
+	populateDropdown('task', configuration.task);
+	var types = [];
+	var i;
+	for (i=0; i<configuration.items.length; i++) {
+		types[i] = configuration.items[i].type;
+	}
+	populateDropdown('type', types)
 
 	remote.getCurrentWindow().setContentSize(
 		document.documentElement.offsetWidth,
