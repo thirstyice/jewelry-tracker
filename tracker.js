@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, remote} = require('electron');
 var shiftStart;
 var jobStart;
 var configuration;
@@ -93,8 +93,26 @@ function endDay() {
 	dayLength -= dayHours * 3600000
 	var dayMinutes = Math.round(dayLength / 60000)
 	console.log('day length ' + makeTimeString(dayHours, dayMinutes))
-	// download data
-	switchButtonToStartDay()
+	var csv = "Task,Type,Gauge,Metal,Size,Completed,AvgTime\n"
+	var i;
+	for (i=0; i<completed.length; i++) {
+		var minutes = Math.floor(completed[i].averageTime/60000);
+		var seconds = Math.round((completed[i].averageTime - (minutes * 60000))/1000);
+		csv += completed[i].job + "," + completed[i].number + "," + makeTimeString(minutes, seconds) + "\n";
+	}
+	var saveLocation = remote.dialog.showSaveDialogSync( remote.getCurrentWindow(), {
+		filters: [
+			{name: "Comma Separated Values", extensions: "csv" },
+			{name: "All files", extensions: "*"}
+		],
+		properties:["createDirectory"],
+		showsTagField: false,
+		defaultPath: shiftStart.toDateString() + ".csv"
+	});
+	if (saveLocation) {
+		fs.writeFileSync( saveLocation, csv );
+	}
+	location.reload(); // I know this is a hacky workaround, but I can't be bothered
 }
 
 function completeItem() {
@@ -121,10 +139,6 @@ function completeItem() {
 	completed[taskIndex].number ++;
 	document.getElementById("numberCompleted").innerHTML = completed[taskIndex].number;
 	jobStart = new Date();
-}
-
-function undoCompletion() {
-	
 }
 
 function createElement(element, id, eventName, responder) {
@@ -216,11 +230,22 @@ function selected(dropdownId) {
 				averageTime: null
 			};
 		}
-
+		if (jobStart!= null) {
+			startJob();
+		}
 	}
 }
 
 window.onload = function() {
 	initDropdowns();
 	switchButtonToStartDay()
+
+	// Setup space keybinding
+	document.addEventListener("keyup", function(event) {
+		// Number 32 is the "space" key on the keyboard
+		if (event.keyCode === 32) {
+			event.preventDefault();
+			completeItem();
+		}
+	});
 }
