@@ -1,23 +1,60 @@
 {
-	"name": "jewlery-tracker",
-	"version": "0.1.0",
-	"description": "Time tracker for polishing jewlery",
-	"main": "index.js",
-	"scripts": {
-		"start": "electron .",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/thirstyice/jewlery-tracker.git"
-	},
-	"author": "",
-	"license": "GPL v3",
-	"bugs": {
-		"url": "https://github.com/thirstyice/jewlery-tracker/issues"
-	},
-	"homepage": "https://github.com/thirstyice/jewlery-tracker#readme",
-	"devDependencies": {
-		"electron": "^10.1.5"
-	}
+  "name": "jewlery-tracker",
+  "version": "0.1.0",
+  "description": "Time tracker for polishing jewlery",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thirstyice/jewlery-tracker.git"
+  },
+  "author": "Tauran Wood",
+  "license": "GPL v3",
+  "bugs": {
+    "url": "https://github.com/thirstyice/jewlery-tracker/issues"
+  },
+  "homepage": "https://github.com/thirstyice/jewlery-tracker#readme",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^10.1.5"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "jewlery_tracker"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin",
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
 }
