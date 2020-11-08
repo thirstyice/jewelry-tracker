@@ -17,9 +17,9 @@ ipcRenderer.on("settingsWasClosed", (event) => {
 
 function getConfiguration() {
 	var confFilePath = ipcRenderer.sendSync('getConfFilePath');
-	var flags = 'w+'
-	if (fs.existsSync(confFilePath)) {
-		flags = 'r+'
+	var flags = 'r+'
+	if (fs.existsSync(confFilePath) != true) {
+		fs.copyFileSync(remote.app.getAppPath() + "config.json", confFilePath);
 	}
 	var confFile = fs.readFileSync( confFilePath, {encoding:'utf-8', flag:flags} );
 	configuration = JSON.parse(confFile);
