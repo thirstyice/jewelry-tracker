@@ -17,6 +17,13 @@
 
 const { app, BrowserWindow, ipcMain } = require('electron')
 
+try {
+	// If we're in the process of installing on windows
+	if (require('electron-squirrel-startup')) return app.quit();
+} finally {
+	// Not installing, carry on as normal
+}
+
 var mainWindow;
 var settingsWindow;
 
