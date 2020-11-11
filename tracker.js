@@ -246,6 +246,8 @@ window.onload = function() {
 		if (event.keyCode === 32) {
 			event.preventDefault();
 			completeItem();
+		} else if (event.keyCode === 123) { // F12
+			remote.getCurrentWindow().toggleDevTools();
 		}
 	});
 }

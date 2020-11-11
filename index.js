@@ -23,9 +23,9 @@ var settingsWindow;
 function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 500,
-		height: 190,
-		minWidth: 300,
-		minHeight: 190,
+		height: 145,
+		minWidth: 400,
+		minHeight: 145,
 		useContentSize: true,
 		backgroundColor: "#444444",
 		webPreferences: {
@@ -35,6 +35,7 @@ function createWindow() {
 		show:false
 	})
 	mainWindow.loadFile('index.html')
+	mainWindow.removeMenu();
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show()
 	})
@@ -59,6 +60,7 @@ ipcMain.on('openSettings', (event) => {
 		show: false
 	});
 	settingsWindow.loadFile('settings.html');
+	mainWindow.removeMenu();
 	settingsWindow.once('ready-to-show', () => {
 		settingsWindow.show()
 	})

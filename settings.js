@@ -223,6 +223,8 @@ window.onload = function() {
 		if (event.keyCode === 13) {
 			event.preventDefault();
 			document.getElementById("promptButton").click();
+		} else if (event.keyCode === 123) { // F12
+			remote.getCurrentWindow().toggleDevTools();
 		}
 	});
 }
