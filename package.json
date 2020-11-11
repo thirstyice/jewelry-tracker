@@ -1,6 +1,6 @@
 {
   "name": "jewlery-tracker",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Time tracker for polishing jewlery",
   "main": "main.js",
   "scripts": {
