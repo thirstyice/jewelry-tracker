@@ -2,7 +2,7 @@
   "name": "jewlery-tracker",
   "version": "0.1.0",
   "description": "Time tracker for polishing jewlery",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
     "test": "echo \"Error: no test specified\" && exit 1",
