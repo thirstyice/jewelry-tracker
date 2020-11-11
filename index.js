@@ -240,6 +240,11 @@ window.onload = function() {
 	initDropdowns();
 	switchButtonToStartDay()
 
+	remote.getCurrentWindow().setContentSize(
+		document.documentElement.offsetWidth,
+		document.documentElement.offsetHeight,
+		true
+	);
 	// Setup space keybinding
 	document.addEventListener("keyup", function(event) {
 		// Number 32 is the "space" key on the keyboard
