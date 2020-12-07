@@ -8,30 +8,35 @@
 	"items": [
 		{
 			"type": "Labrettes",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
 			"gauge": [ "14g", "16g" ],
 			"material": [ "Stainless", "Titanium" ],
 			"size": [ "1/4", "5/16", "3/8" ]
 		},
 		{
 			"type": "CBRs",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
 			"gauge": [ "14g" ],
 			"material": [ "Stainless", "Titanium" ],
 			"size": [ "5/16", "3/8", "7/16", "1/2" ]
 		},
 		{
 			"type": "Barbells",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
 			"gauge": [ "N/A" ],
 			"material": [ "Titanium" ],
 			"size": [ "7/16", "9/16", "3/4"]
 		},
 		{
 			"type": "Threadless",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
 			"gauge": [ "14g", "16g" ],
 			"material": [ "Titanium" ],
 			"size": [ "1/4", "5/16" ]
 		},
 		{
 			"type": "Gems",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
 			"gauge": [ "14g", "White", "Clear" ],
 			"material": [ "Fauxpal", "Bezel", "Disk" ],
 			"size": [ "3mm", "4mm" ]
