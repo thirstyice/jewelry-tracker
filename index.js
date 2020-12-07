@@ -93,7 +93,7 @@ function endDay() {
 	dayLength -= dayHours * 3600000
 	var dayMinutes = Math.round(dayLength / 60000)
 	console.log('day length ' + makeTimeString(dayHours, dayMinutes))
-	var csv = "Task,Type,Gauge,Metal,Size,Completed,AvgTime\n"
+	var csv = "Task,Type,Gauge,Material,Size,Completed,AvgTime\n"
 	var i;
 	for (i=0; i<completed.length; i++) {
 		var minutes = Math.floor(completed[i].averageTime/60000);
@@ -202,7 +202,7 @@ function selected(dropdownId) {
 		getConfiguration();
 
 		populateDropdown('gauge', configuration.items[selectedId].gauge);
-		populateDropdown('metal', configuration.items[selectedId].metal);
+		populateDropdown('Material', configuration.items[selectedId].material);
 		populateDropdown('size', configuration.items[selectedId].size);
 		initComplete = true;
 	}
@@ -210,10 +210,10 @@ function selected(dropdownId) {
 		var selectedTask = getSelectedOptionForDropdown("taskSelector").value;
 		var selectedType = getSelectedOptionForDropdown("typeSelector").value;
 		var selectedGauge = getSelectedOptionForDropdown("gaugeSelector").value;
-		var selectedMetal = getSelectedOptionForDropdown("metalSelector").value;
+		var selectedMaterial = getSelectedOptionForDropdown("materialSelector").value;
 		var selectedSize = getSelectedOptionForDropdown("sizeSelector").value;
 
-		var selectedJob = selectedTask + "," + selectedType + "," + selectedGauge + "," + selectedMetal + "," + selectedSize;
+		var selectedJob = selectedTask + "," + selectedType + "," + selectedGauge + "," + selectedMaterial + "," + selectedSize;
 
 		var i;
 		taskIndex=null;

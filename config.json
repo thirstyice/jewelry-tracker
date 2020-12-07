@@ -9,31 +9,31 @@
 		{
 			"type": "Labrettes",
 			"gauge": [ "14g", "16g" ],
-			"metal": [ "Stainless", "Titanium" ],
+			"material": [ "Stainless", "Titanium" ],
 			"size": [ "1/4", "5/16", "3/8" ]
 		},
 		{
 			"type": "CBRs",
 			"gauge": [ "14g" ],
-			"metal": [ "Stainless", "Titanium" ],
+			"material": [ "Stainless", "Titanium" ],
 			"size": [ "5/16", "3/8", "7/16", "1/2" ]
 		},
 		{
 			"type": "Barbells",
 			"gauge": [ "N/A" ],
-			"metal": [ "Titanium" ],
+			"material": [ "Titanium" ],
 			"size": [ "7/16", "9/16", "3/4"]
 		},
 		{
 			"type": "Threadless",
 			"gauge": [ "14g", "16g" ],
-			"metal": [ "Titanium" ],
+			"material": [ "Titanium" ],
 			"size": [ "1/4", "5/16" ]
 		},
 		{
 			"type": "Gems",
 			"gauge": [ "14g", "White", "Clear" ],
-			"metal": [ "Fauxpal", "Bezel", "Disk" ],
+			"material": [ "Fauxpal", "Bezel", "Disk" ],
 			"size": [ "3mm", "4mm" ]
 		}
 	]

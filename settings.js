@@ -66,7 +66,7 @@ function selected(dropdownId) {
 	var selectedId =  options[options.selectedIndex].id;
 	if (dropdownId == "typeSelector") {
 		populateDropdown('gauge', configuration.items[selectedId].gauge);
-		populateDropdown('metal', configuration.items[selectedId].metal);
+		populateDropdown('material', configuration.items[selectedId].material);
 		populateDropdown('size', configuration.items[selectedId].size);
 	}
 }
@@ -111,7 +111,7 @@ function add(kind) {
 				configuration.items[i] = {
 					type: name,
 					gauge: [],
-					metal: [],
+					material: [],
 					size: []
 				};
 				populateType();
@@ -125,12 +125,12 @@ function add(kind) {
 				configuration.items[selectedItem].gauge[i] = name;
 				populateDropdown("gauge", configuration.items[selectedItem].gauge);
 			break;
-			case "metal":
+			case "material":
 				for (i=options.length; i>(options.selectedIndex + 1); i--) {
-					configuration.items[selectedItem].metal[i] = configuration.items[selectedItem].metal[i-1];
+					configuration.items[selectedItem].material[i] = configuration.items[selectedItem].material[i-1];
 				}
-				configuration.items[selectedItem].metal[i] = name;
-				populateDropdown("metal", configuration.items[selectedItem].metal);
+				configuration.items[selectedItem].material[i] = name;
+				populateDropdown("material", configuration.items[selectedItem].material);
 			break;
 			case "size":
 				for (i=options.length; i>(options.selectedIndex + 1); i--) {
@@ -182,12 +182,12 @@ function remove(kind) {
 			configuration.items[item].gauge.pop();
 			populateDropdown("gauge", configuration.items[item].gauge);
 		break;
-		case "metal" :
+		case "material" :
 			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
-				configuration.items[item].metal[i] = configuration.items[item].metal[i + 1];
+				configuration.items[item].material[i] = configuration.items[item].material[i + 1];
 			}
-			configuration.items[item].metal.pop();
-			populateDropdown("metal", configuration.items[item].metal);
+			configuration.items[item].material.pop();
+			populateDropdown("material", configuration.items[item].material);
 		break;
 		case "size" :
 			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
