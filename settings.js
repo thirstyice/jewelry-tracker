@@ -65,6 +65,7 @@ function selected(dropdownId) {
 	var options = document.getElementById(dropdownId).options;
 	var selectedId =  options[options.selectedIndex].id;
 	if (dropdownId == "typeSelector") {
+		populateDropdown('brand', configuration.items[selectedId].brand);
 		populateDropdown('gauge', configuration.items[selectedId].gauge);
 		populateDropdown('material', configuration.items[selectedId].material);
 		populateDropdown('size', configuration.items[selectedId].size);
@@ -110,6 +111,7 @@ function add(kind) {
 				}
 				configuration.items[i] = {
 					type: name,
+					brand: [],
 					gauge: [],
 					material: [],
 					size: []
@@ -117,6 +119,13 @@ function add(kind) {
 				populateType();
 				document.getElementById(dropdownId).selectedIndex = i;
 				selected(dropdownId);
+			break;
+			case "brand":
+				for (i=options.length; i>(options.selectedIndex + 1); i--) {
+					configuration.items[selectedItem].brand[i] = configuration.items[selectedItem].brand[i-1];
+				}
+				configuration.items[selectedItem].brand[i] = name;
+				populateDropdown("brand", configuration.items[selectedItem].brand);
 			break;
 			case "gauge":
 				for (i=options.length; i>(options.selectedIndex + 1); i--) {
@@ -174,6 +183,13 @@ function remove(kind) {
 			populateType();
 			dropdown.selectedIndex = 0;
 			selected(kind + "Selector");
+		break;
+		case "brand" :
+			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
+				configuration.items[item].brand[i] = configuration.items[item].brand[i + 1];
+			}
+			configuration.items[item].brand.pop();
+			populateDropdown("brand", configuration.items[item].brand);
 		break;
 		case "gauge" :
 			for (i = dropdown.selectedIndex; i < (dropdown.length - 1); i++) {
