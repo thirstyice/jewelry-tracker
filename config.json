@@ -1,45 +1,133 @@
 {
 	"task": [
-		"Polishing",
-		"QCing",
+		"Polishing - Black",
+		"Polishing - Partial Black",
+		"Polishing - White",
+		"Polishing - Partial White",
+		"Polishing - Yellow",
+		"Polishing - Rouge",
 		"Setting",
 		"Sanding"
 	],
 	"items": [
 		{
-			"type": "Labrettes",
+			"type": "Labrets",
 			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
-			"gauge": [ "14g", "16g" ],
+			"gauge": [ "16g", "14g" ],
 			"material": [ "Stainless", "Titanium" ],
+			"size": [ "1/4", "5/16", "3/8", "7/16", "Custom" ],
+		},
+		{
+			"type": "THR Labrets",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "18g", "16g", "14g" ],
+			"material": [ "Titanium" ],
 			"size": [ "1/4", "5/16", "3/8" ]
 		},
 		{
 			"type": "CBRs",
 			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
-			"gauge": [ "14g" ],
-			"material": [ "Stainless", "Titanium" ],
+			"gauge": [ "18g", "16g", "14g", "12g", "10g", "8g", "Custom" ],
+			"material": [ "Stainless", "Titanium", "Niobium" ],
+			"size": [ "1/4", "5/16", "3/8", "7/16", "1/2", "5/8", "3/4", "Custom" ]
+		},
+		{
+			"type": "CBBs",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
+			"gauge": [ "16g" ],
+			"material": [ "Titanium" ],
+			"size": [ "5/16", "3/8" ]
+		},
+		{
+			"type": "CVs",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
+			"gauge": [ "16g", "14g", "12g", "10g", "8g", "Custom" ],
+			"material": [ "Titanium", "Stainless" ],
+			"size": [ "5/16", "3/8", "7/16", "1/2", "9/16", "Custom" ]
+		},
+		{
+			"type": "THR Gems",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "Clear", "Aqua", "Pink", "Other" ],
+			"material": [ "Titanium", "Stainless" ],
+			"size": [ "3mm", "4mm" ]
+		},
+		{
+			"type": "THR Opals",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "White", "Aqua", "Pink", "Purple", "Blue", "Other" ],
+			"material": [ "Titanium", "Stainless" ],
+			"size": [ "3mm", "4mm" ]
+		},
+		{
+			"type": "THL Gems",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "Clear", "Aqua", "Other" ],
+			"material": [ "Titanium" ],
+			"size": [ "2.5mm", "3mm", "3.5mm", "4mm" ]
+		},
+		{
+			"type": "THL Opals",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "White", "Pink", "Other" ],
+			"material": [ "Titanium" ],
+			"size": [ "2.5mm", "3mm", "3.5mm", "4mm" ]
+		},
+		{
+			"type": "Seg",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "16g", "14g" ],
+			"material": [ "Titanium" ],
+			"size": [ "1/4", "5/16", "3/8", "7/16", "1/2" ]
+		},
+		{
+			"type": "JSeg",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "18g", "16g", "14g" ],
+			"material": [ "Titanium" ],
 			"size": [ "5/16", "3/8", "7/16", "1/2" ]
 		},
 		{
-			"type": "Barbells",
-			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
-			"gauge": [ "N/A" ],
+			"type": "JCBR",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "16g", "14g" ],
 			"material": [ "Titanium" ],
-			"size": [ "7/16", "9/16", "3/4"]
+			"size": [ "5/16", "3/8", "7/16" ]
 		},
 		{
-			"type": "Threadless",
+			"type": "BBs",
 			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
-			"gauge": [ "14g", "16g" ],
-			"material": [ "Titanium" ],
-			"size": [ "1/4", "5/16" ]
+			"gauge": [ "14g" ],
+			"material": [ "Titanium", "Stainless" ],
+			"size": [ "5/16", "3/8", "7/16", "1/2", "9/16", "5/8", "3/4", "7/8", "1", "1 1/4", "1 5/16", "1 3/8", "Custom" ]
 		},
 		{
-			"type": "Gems",
+			"type": "THR Bead",
 			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
-			"gauge": [ "14g", "White", "Clear" ],
-			"material": [ "Fauxpal", "Bezel", "Disk" ],
+			"gauge": [ "16g", "14g" ],
+			"material": [ "Titanium", "Stainless" ],
+			"size": [ "2.5mm", "3mm", "4mm", "5mm", "Custom" ]
+		},
+		{
+			"type": "THR Disk",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "14g" ],
+			"material": [ "Titanium" ],
 			"size": [ "3mm", "4mm" ]
+		},
+		{
+			"type": "Prong",
+			"brand": [ "Tribal Made" ],
+			"gauge": [ "Clear", "Pink", "Blue" ],
+			"material": [ "Titanium" ],
+			"size": [ "3mm" ]
+		},
+		{
+			"type": "Custom",
+			"brand": [ "Tribal Made", "Metal Mafia", "Painful Pleasure", "Other 3rd Party" ],
+			"gauge": [ "18g", "16g", "14g", "12g", "10g", "8g", "Clear", "White", "Pink", "Aqua", "Blue", "Purple", "Custom" ],
+			"material": [ "Titanium", "Stainless", "Niobium" ],
+			"size": [ "1/4", "5/16", "3/8", "7/16", "1/2", "9/16", "5/8", "3/4", "7/8", "1", "1 1/4", "1 5/16", "1 3/8", "2.5mm", "3mm", "3.5mm", "4mm", "Custom" ]
 		}
 	]
 }
