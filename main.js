@@ -29,7 +29,7 @@ var settingsWindow;
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
-		width: 500,
+		width: 650,
 		height: 145,
 		minWidth: 400,
 		minHeight: 145,
