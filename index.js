@@ -96,9 +96,11 @@ function endDay() {
 	var csv = "Task,Brand,Type,Gauge,Material,Size,Completed,AvgTime\n"
 	var i;
 	for (i=0; i<completed.length; i++) {
-		var minutes = Math.floor(completed[i].averageTime/60000);
-		var seconds = Math.round((completed[i].averageTime - (minutes * 60000))/1000);
-		csv += completed[i].job + "," + completed[i].number + "," + makeTimeString(minutes, seconds) + "\n";
+		if (completed[i].number != 0) {
+			var minutes = Math.floor(completed[i].averageTime/60000);
+			var seconds = Math.round((completed[i].averageTime - (minutes * 60000))/1000);
+			csv += completed[i].job + "," + completed[i].number + "," + makeTimeString(minutes, seconds) + "\n";
+		}
 	}
 	var saveLocation = remote.dialog.showSaveDialogSync( remote.getCurrentWindow(), {
 		filters: [
